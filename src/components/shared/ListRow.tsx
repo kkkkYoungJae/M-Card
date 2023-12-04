@@ -33,7 +33,7 @@ const listRowContainerStyles = css`
 `
 
 const listRowLeftStyles = css`
-  maring-right: 14px;
+  margin-right: 14px;
 `
 
 const listRowContetsStyles = css`
