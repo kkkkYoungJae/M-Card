@@ -1,6 +1,7 @@
 import { colors } from '@/styles/colorPalette'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { motion } from 'framer-motion'
 import { createPortal } from 'react-dom'
 import Button from './Button'
 
@@ -15,7 +16,13 @@ const FixedBottomButton = ({ label, onClick }: FixedBottomButtonProps) => {
   if (!$portalRoot) return null
 
   return createPortal(
-    <Container>
+    <Container
+      initial={{ opacity: 0, translateY: '100%' }}
+      whileInView={{ opacity: 1, translateY: '0%' }}
+      transition={{
+        duration: 0.7,
+      }}
+    >
       <Button full onClick={onClick} css={buttonStyles} size="medium">
         {label}
       </Button>
@@ -24,7 +31,7 @@ const FixedBottomButton = ({ label, onClick }: FixedBottomButtonProps) => {
   )
 }
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   position: fixed;
   left: 0;
   right: 0;
