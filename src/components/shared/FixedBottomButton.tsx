@@ -8,9 +8,14 @@ import Button from './Button'
 interface FixedBottomButtonProps {
   label: string
   onClick: () => void
+  disabled?: boolean
 }
 
-const FixedBottomButton = ({ label, onClick }: FixedBottomButtonProps) => {
+const FixedBottomButton = ({
+  label,
+  onClick,
+  disabled,
+}: FixedBottomButtonProps) => {
   const $portalRoot = document.getElementById('root-portal')
 
   if (!$portalRoot) return null
@@ -23,7 +28,13 @@ const FixedBottomButton = ({ label, onClick }: FixedBottomButtonProps) => {
         duration: 0.7,
       }}
     >
-      <Button full onClick={onClick} css={buttonStyles} size="medium">
+      <Button
+        full
+        disabled={disabled}
+        onClick={onClick}
+        css={buttonStyles}
+        size="medium"
+      >
         {label}
       </Button>
     </Container>,
