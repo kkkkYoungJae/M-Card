@@ -1,6 +1,6 @@
 import { colors } from '@/styles/colorPalette'
 import styled from '@emotion/styled'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import Button from './Button'
 import Dimmed from './Dimmed'
 import Flex from './Flex'
