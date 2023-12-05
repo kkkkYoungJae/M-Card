@@ -4,9 +4,10 @@ import { FormValues } from '@/models/signup'
 import { auth, store } from '@/remote/firebase'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
+import { useCallback } from 'react'
 
 const SignupPage = () => {
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = useCallback(async (formValues: FormValues) => {
     const { email, password, name } = formValues
 
     const { user } = await createUserWithEmailAndPassword(auth, email, password)
@@ -19,7 +20,7 @@ const SignupPage = () => {
     }
 
     await setDoc(doc(collection(store, COLLECTIONS.USER), user.uid), newUser)
-  }
+  }, [])
 
   return <Form onSubmit={handleSubmit} />
 }
