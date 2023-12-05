@@ -34,8 +34,6 @@ const Navbar = () => {
     return null
   }, [handleLogout, showSignButton, user])
 
-  console.log(user)
-
   return (
     <Flex css={navbarContainerStyles} justify="space-between" align="center">
       <Link to="/">홈</Link>
