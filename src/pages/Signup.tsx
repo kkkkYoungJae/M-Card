@@ -5,22 +5,34 @@ import { auth, store } from '@/remote/firebase'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SignupPage = () => {
-  const handleSubmit = useCallback(async (formValues: FormValues) => {
-    const { email, password, name } = formValues
+  const navigate = useNavigate()
 
-    const { user } = await createUserWithEmailAndPassword(auth, email, password)
-    await updateProfile(user, { displayName: name })
+  const handleSubmit = useCallback(
+    async (formValues: FormValues) => {
+      const { email, password, name } = formValues
 
-    const newUser = {
-      uid: user.uid,
-      email: user.email,
-      displayName: name,
-    }
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      )
+      await updateProfile(user, { displayName: name })
 
-    await setDoc(doc(collection(store, COLLECTIONS.USER), user.uid), newUser)
-  }, [])
+      const newUser = {
+        uid: user.uid,
+        email: user.email,
+        displayName: name,
+      }
+
+      await setDoc(doc(collection(store, COLLECTIONS.USER), user.uid), newUser)
+
+      navigate('/')
+    },
+    [navigate],
+  )
 
   return <Form onSubmit={handleSubmit} />
 }
